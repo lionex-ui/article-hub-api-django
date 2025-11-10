@@ -1,0 +1,38 @@
+[project]
+name = "article-hub-api-django"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "lionex-ui",email = "eugenemescaline@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "django (>=5.2.8,<6.0.0)",
+    "djangorestframework (>=3.16.1,<4.0.0)",
+    "psycopg[binary] (>=3.2.12,<4.0.0)",
+    "python-dotenv (>=1.2.1,<2.0.0)",
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "isort (>=7.0.0,<8.0.0)",
+    "black (>=25.11.0,<26.0.0)",
+    "flake8 (>=7.3.0,<8.0.0)",
+    "flake8-bugbear (>=25.10.21,<26.0.0)",
+    "flake8-comprehensions (>=3.17.0,<4.0.0)",
+    "flake8-bandit (>=4.1.1,<5.0.0)"
+]
+
+[tool.black]
+line-length = 120
+target-version = ["py313"]
+
+[tool.isort]
+profile = "black"
+line_length = 120
