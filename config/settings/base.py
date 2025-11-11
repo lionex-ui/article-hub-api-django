@@ -24,6 +24,8 @@ INSTALLED_APPS = [
     "apps.articles",
 ]
 
+AUTH_USER_MODEL = "users.User"
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -52,7 +54,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
-ASGI_APPLICATION = "config.asgi.application"
 
 DATABASES = {
     "default": {
