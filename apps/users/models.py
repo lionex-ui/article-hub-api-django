@@ -9,7 +9,8 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, email: str, username: str, password: str): ...
+    def create_superuser(self, email: str, username: str, password: str):
+        ...
 
 
 class User(AbstractBaseUser, PermissionsMixin):
