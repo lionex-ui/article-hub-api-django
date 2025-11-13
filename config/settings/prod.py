@@ -16,10 +16,6 @@ SECURE_HSTS_PRELOAD = True
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = os.getenv("DJANGO_CORS_ALLOWED_ORIGINS", "").split(",")
 
-# Celery / Redis
-CELERY_BROKER_URL = os.getenv("REDIS_URL")
-CELERY_RESULT_BACKEND = os.getenv("REDIS_URL")
-
 # Logging
 LOGGING = {
     "version": 1,
