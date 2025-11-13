@@ -21,7 +21,6 @@ class ArticleSerializer(serializers.ModelSerializer):
 
         return tags
 
-
     def create(self, validated_data: dict) -> Article:
         user = self.context["request"].user
         return Article.objects.create(author=user, **validated_data)
