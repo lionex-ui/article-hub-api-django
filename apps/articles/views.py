@@ -10,15 +10,12 @@ from .permissions import IsAuthorOrReadOnly
 from .serializers import ArticleSerializer
 
 
-class ArticleViewMixins(
+class ArticleListAndCreateViewMixins(
     mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
     mixins.CreateModelMixin,
-    mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin,
     generics.GenericAPIView,
 ):
-    queryset = Article.objects.all().select_related()
+    queryset = Article.objects.all().select_related("author")
     serializer_class = ArticleSerializer
 
     pagination_class = DefaultPagination
@@ -29,17 +26,32 @@ class ArticleViewMixins(
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthorOrReadOnly]
 
-    def get(self, request, pk=None, *args, **kwargs):
-        if pk is not None:
-            return self.retrieve(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        request.data["author"] = request.user.id
         return self.create(request, *args, **kwargs)
 
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
+
+class ArticleRetrieveAndUpdateAndDestroyViewMixins(
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    generics.GenericAPIView,
+):
+    queryset = Article.objects.all().select_related("author")
+    serializer_class = ArticleSerializer
+
+    pagination_class = DefaultPagination
+
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ArticleFilter
+
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthorOrReadOnly]
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
 
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
