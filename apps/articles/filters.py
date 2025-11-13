@@ -18,4 +18,4 @@ class ArticleFilter(django_filters.FilterSet):
 
     # noinspection PyMethodMayBeStatic
     def filter_by_search(self, queryset, name, value):
-        return queryset.filter(Q(title__icontains=value) | Q(description__icontains=value))
+        return queryset.filter(Q(title__icontains=value) | Q(content__icontains=value))
