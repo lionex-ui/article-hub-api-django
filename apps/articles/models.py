@@ -9,6 +9,7 @@ class Article(models.Model):
     tags = models.JSONField(default=list)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    analysis = models.JSONField(default=dict, blank=True)
 
     def __str__(self):
         return f"<Article: {self.title}>"

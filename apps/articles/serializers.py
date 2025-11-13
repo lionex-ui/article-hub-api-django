@@ -9,10 +9,11 @@ class ArticleSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     author_id = serializers.IntegerField(source="author.id", read_only=True)
     author_username = serializers.CharField(source="author.username", read_only=True)
+    analysis = serializers.JSONField(read_only=True)
 
     class Meta:
         model = Article
-        fields = ["id", "title", "content", "tags", "author_id", "author_username", "created_at"]
+        fields = ["id", "title", "content", "tags", "author_id", "author_username", "created_at", "analysis"]
 
     # noinspection PyMethodMayBeStatic
     def validate_tags(self, tags: Any) -> list[str]:
