@@ -13,4 +13,4 @@ from rest_framework.views import APIView
 class HealthAPIView(APIView):
     # noinspection PyMethodMayBeStatic
     def get(self, request):
-        return Response({"status": "Alive"}, status=status.HTTP_200_OK)
+        return Response({"status": "I'm Alive"}, status=status.HTTP_200_OK)
