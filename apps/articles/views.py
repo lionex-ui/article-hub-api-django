@@ -1,5 +1,5 @@
-from drf_spectacular.utils import extend_schema
 from django_filters.rest_framework import DjangoFilterBackend
+from drf_spectacular.utils import extend_schema
 from rest_framework import generics, mixins, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -80,15 +80,11 @@ class ArticleAnalyzeAPIView(APIView):
         try:
             article = Article.objects.get(pk=pk)
         except Article.DoesNotExist:
-            return Response(
-                {"error": "Article matching query does not exist."},
-                status=status.HTTP_404_NOT_FOUND
-            )
+            return Response({"error": "Article matching query does not exist."}, status=status.HTTP_404_NOT_FOUND)
 
         if article.author != request.user:
             return Response(
-                {"error": "You do not have permission to analyze this article."},
-                status=status.HTTP_403_FORBIDDEN
+                {"error": "You do not have permission to analyze this article."}, status=status.HTTP_403_FORBIDDEN
             )
 
         analyze_article.delay(pk)
