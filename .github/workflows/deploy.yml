@@ -1,9 +1,10 @@
 name: Deploy to EC2
 
 on:
+  push:
+    branches: [ main, master ]
   pull_request:
-    types: [ closed ]
-    branches: [ main ]
+    branches: [ main, master ]
 
 jobs:
   deploy:
