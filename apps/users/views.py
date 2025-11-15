@@ -12,7 +12,7 @@ from .serializers import UserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
+    queryset = User.objects.all().order_by("date_joined")
     serializer_class = UserSerializer
 
     pagination_class = DefaultPagination

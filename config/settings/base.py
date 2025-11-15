@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     # Local apps
     "apps.users",
     "apps.articles",
+    "apps.health",
 ]
 
 REST_FRAMEWORK = {

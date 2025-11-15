@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, mixins, status
 from rest_framework.response import Response
@@ -18,7 +19,7 @@ class ArticleListAndCreateViewMixins(
     mixins.CreateModelMixin,
     generics.GenericAPIView,
 ):
-    queryset = Article.objects.all().select_related("author")
+    queryset = Article.objects.all().select_related("author").order_by("created_at")
     serializer_class = ArticleSerializer
 
     pagination_class = DefaultPagination
@@ -42,7 +43,7 @@ class ArticleRetrieveAndUpdateAndDestroyViewMixins(
     mixins.DestroyModelMixin,
     generics.GenericAPIView,
 ):
-    queryset = Article.objects.all().select_related("author")
+    queryset = Article.objects.all().select_related("author").order_by("created_at")
     serializer_class = ArticleSerializer
 
     pagination_class = DefaultPagination
@@ -63,6 +64,14 @@ class ArticleRetrieveAndUpdateAndDestroyViewMixins(
         return self.destroy(request, *args, **kwargs)
 
 
+@extend_schema(
+    request=None,
+    responses={
+        200: {"type": "object", "properties": {"message": {"type": "string"}}},
+        403: {"type": "object", "properties": {"error": {"type": "string"}}},
+        404: {"type": "object", "properties": {"error": {"type": "string"}}},
+    },
+)
 class ArticleAnalyzeAPIView(APIView):
     authentication_classes = [JWTAuthentication]
 
